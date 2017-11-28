@@ -1,12 +1,12 @@
 {
-  "name": "msufcuchatbot",
+  "name": "growthchart",
   "version": "1.0.0",
-  "description": "MSUFCUChatbot Webhook",
+  "description": "growthchart Webhook",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "author": "Syed",
+  "author": "Josh",
   "dependencies": {
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
