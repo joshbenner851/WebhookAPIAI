@@ -36,6 +36,11 @@ app.post( "/growthchart", function( req, res ) {
                         speech: response.body.question,
                         displayText: response.body.question,
                     } );
+                } else {
+                    return res.json( {
+                        speech: "posted but fuck",
+                        displayText: "posted but fuck",
+                    } );
                 }
             }
         );
