@@ -32,8 +32,8 @@ app.post( "/growthchart", function( req, res ) {
             function( error, response ) {
                 if( !error && response.statusCode == 200 ) {
                     return res.json( {
-                        speech: "Logged",
-                        displayText: "Logged",
+                        speech: response.body.message,
+                        displayText: response.body.message,
                     } );
                 } else {
                     return res.json( {
