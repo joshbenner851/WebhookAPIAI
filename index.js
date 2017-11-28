@@ -20,13 +20,6 @@ app.post( "/growthchart", function( req, res ) {
         const student_name = req.body.result.parameters.studentName;
         const category = req.body.result.parameters.category;
         const event = req.body.result.parameters.event;
-        return res.json( {
-            speech: "stuff",
-            displayText: "stuff",
-           
-        } );
-        
-    }
         const observation = {
               name: [student_name],
               category: [category], 
