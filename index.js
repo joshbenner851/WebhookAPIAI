@@ -16,7 +16,7 @@ app.use( bodyParser.json() );
 
 
 app.post( "/growthchart", function( req, res ) {
-    if( req.body.result.action == "LogObservationAction" ) {
+    if( req.body.result.action == "LogObservation" ) {
         const student_name = req.body.result.parameters.studentName;
         const category = req.body.result.parameters.category;
         const event = req.body.result.parameters.event;
