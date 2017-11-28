@@ -15,7 +15,7 @@ app.use( bodyParser.urlencoded( {
 app.use( bodyParser.json() );
 
 
-app.post( "/echo", function( req, res ) {
+app.post( "/growthchart", function( req, res ) {
     if( req.body.result.action == "LogObservationAction" ) {
         const student_name = req.body.result.parameters.studentName;
         const category = req.body.result.parameters.category;
