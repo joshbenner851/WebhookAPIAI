@@ -27,30 +27,30 @@ app.post( "/growthchart", function( req, res ) {
         } );
         
     }
-//         const observation = {
-//               name: [student_name],
-//               category: [category], 
-//               event: [event]
-//         }
+        const observation = {
+              name: [student_name],
+              category: [category], 
+              event: [event]
+        }
         
-//         request.post(
-//             "http://dev.api.growthchart.me/observation/" + student_name,
-//             { json: { observation } },
-//             function( error, response ) {
-//                 if( !error && response.statusCode == 200 ) {
-//                     return res.json( {
-//                         speech: response.body.question,
-//                         displayText: response.body.question,
-//                     } );
-//                 } else {
-//                     return res.json( {
-//                         speech: "posted but fuck",
-//                         displayText: "posted but fuck",
-//                     } );
-//                 }
-//             }
-//         );
-//     }
+        request.post(
+            "http://dev.api.growthchart.me/observation/" + student_name,
+            { json: { observation } },
+            function( error, response ) {
+                if( !error && response.statusCode == 200 ) {
+                    return res.json( {
+                        speech: "Logged",
+                        displayText: "Logged",
+                    } );
+                } else {
+                    return res.json( {
+                        speech: "posted but fuck",
+                        displayText: "posted but fuck",
+                    } );
+                }
+            }
+        );
+    }
     
     else {
         return res.json( {
