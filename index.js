@@ -16,11 +16,17 @@ app.use( bodyParser.json() );
 
 
 app.post( "/growthchart", function( req, res ) {
-//     if( req.body.result.action == "LogObservationAction" ) {
-//         const student_name = req.body.result.parameters.studentName;
-//         const category = req.body.result.parameters.category;
-//         const event = req.body.result.parameters.event;
+    if( req.body.result.action == "LogObservationAction" ) {
+        const student_name = req.body.result.parameters.studentName;
+        const category = req.body.result.parameters.category;
+        const event = req.body.result.parameters.event;
+        return res.json( {
+            speech: "stuff",
+            displayText: "stuff",
+           
+        } );
         
+    }
 //         const observation = {
 //               name: [student_name],
 //               category: [category], 
@@ -46,13 +52,13 @@ app.post( "/growthchart", function( req, res ) {
 //         );
 //     }
     
-//     else {
+    else {
         return res.json( {
             speech: "Grr",
             displayText: "Grrr",
            
         } );
-//     }
+    }
 } );
 
 app.listen( (process.env.PORT || 8000), function() {
