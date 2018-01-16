@@ -17,19 +17,12 @@ app.use( bodyParser.json() );
 
 
 app.post( "/growthchart", function( req, res ) {
-    if( req.body.result.action == "LogObservationAction" ) {
-        const student_name = req.body.result.parameters.studentName;
-        const category = req.body.result.parameters.category;
-        const event = req.body.result.parameters.event;
-        const observation = {
-              name: [student_name],
-              category: [category], 
-              event: [event]
-        }
+    const errMsg = "There was an issue finding the wind chill"
+    if( req.body.result.action == "GetWindChillAction" ) {
+        const cityName = req.body.result.parameters.geo-city;
         
-        request.post(
-            "http://dev.api.growthchart.me/observation/" + student_name,
-            { json: { observation } },
+        request.get(
+            "http://samples.openweathermap.org/data/2.5/find?q=" + cityName + "units=imperial&appid=34cb8b56608a28334436f8924860e73d",
             function( error, response ) {
                 if( !error && response.statusCode == 200 ) {
                     return res.json( {
@@ -38,20 +31,12 @@ app.post( "/growthchart", function( req, res ) {
                     } );
                 } else {
                     return res.json( {
-                        speech: "posted but fuck",
-                        displayText: "posted but fuck",
+                        speech: errMsg,
+                        displayText: errMsg,
                     } );
                 }
             }
         );
-    }
-    
-    else {
-        return res.json( {
-            speech: "Grr",
-            displayText: "Grrr",
-           
-        } );
     }
 } );
 
