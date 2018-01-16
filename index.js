@@ -30,7 +30,7 @@ app.post( "/growthchart", function( req, res ) {
             function( error, response ) {
                 if( !error && response.statusCode == 200 ) {
                     const resp = JSON.parse(response.body);
-                    const weather = resp.list[0];
+                    const weather = resp;
                     const temp = weather.main;
                     const currTempFarenheit = temp.temp;
                     const lowTempFarenheit =  temp.temp_min;
@@ -39,9 +39,9 @@ app.post( "/growthchart", function( req, res ) {
                     const windspeedFactor = Math.pow( windspeed, WINDCHILLCOEFFICIENT );
 
                     const windChillMsg = "The wind chill in " + cityName + " right now is " +
-                        calculateWindChill( currTempFarenheit, windspeedFactor ).toPrecision(1) + ". The windchill low today is " +
-                        calculateWindChill( lowTempFarenheit, windspeedFactor ).toPrecision(1) + " and high is " +
-                        calculateWindChill( highTempFarenheit, windspeedFactor ).toPrecision(1);
+                        calculateWindChill( currTempFarenheit, windspeedFactor ).toPrecision(2) + ". The windchill low today is " +
+                        calculateWindChill( lowTempFarenheit, windspeedFactor ).toPrecision(2) + " and high is " +
+                        calculateWindChill( highTempFarenheit, windspeedFactor ).toPrecision(2);
                     return res.json( {
                         speech: windChillMsg,
                         displayText: windChillMsg,
@@ -62,5 +62,6 @@ app.listen( (process.env.PORT || 8000), function() {
 } );
 
 function calculateWindChill( tempFarenheit, windspeedFactor ) {
+    console.log("temp: ", tempFarenheit);
     return 35.74 + 0.6215 * tempFarenheit - 35.75 * windspeedFactor + 0.4275 * tempFarenheit * windspeedFactor;
 }
