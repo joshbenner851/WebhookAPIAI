@@ -21,7 +21,7 @@ app.post( "/growthchart", function( req, res ) {
     if( req.body.result.action == "GetWindChillAction" ) {
         const cityName = req.body.result.parameters.cityName;
 
-        const URL = "http://samples.openweathermap.org/data/2.5/find?q=" + cityName + "&units=imperial&appid=34cb8b56608a28334436f8924860e73d";
+        const URL = "https://openweathermap.org/data/2.5/weather?appid=b6907d289e10d714a6e88b30761fae22&id=4994358&units=imperial";
         console.log(URL);
         const WINDCHILLCOEFFICIENT = .16;
         request.get(
