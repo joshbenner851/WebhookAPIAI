@@ -22,7 +22,7 @@ app.post( "/growthchart", function( req, res ) {
         const cityName = req.body.result.parameters.cityName;
         
         request.get(
-            "http://samples.openweathermap.org/data/2.5/find?q=" + cityName + "units=imperial&appid=34cb8b56608a28334436f8924860e73d",
+            "http://samples.openweathermap.org/data/2.5/find?q=" + cityName + "&units=imperial&appid=34cb8b56608a28334436f8924860e73d",
             function( error, response ) {
                 if( !error && response.statusCode == 200 ) {
                     return res.json( {
