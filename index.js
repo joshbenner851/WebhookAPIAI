@@ -17,18 +17,34 @@ app.use( bodyParser.json() );
 
 
 app.post( "/growthchart", function( req, res ) {
-    const errMsg = "There was an issue finding the wind chill"
+    const errMsg = "There was an issue finding the wind chill";
     if( req.body.result.action == "GetWindChillAction" ) {
         const cityName = req.body.result.parameters.cityName;
-        
+
+        const URL = "http://samples.openweathermap.org/data/2.5/find?q=" + cityName + "&units=imperial&appid=34cb8b56608a28334436f8924860e73d";
+        console.log(URL);
+        const WINDCHILLCOEFFICIENT = .16;
         request.get(
-            "http://samples.openweathermap.org/data/2.5/find?q=" + cityName + "&units=imperial&appid=34cb8b56608a28334436f8924860e73d",
+            URL,
             {},
             function( error, response ) {
                 if( !error && response.statusCode == 200 ) {
+                    const resp = JSON.parse(response.body);
+                    const weather = resp.list[0];
+                    const temp = weather.main;
+                    const currTempFarenheit = temp.temp;
+                    const lowTempFarenheit =  temp.temp_min;
+                    const highTempFarenheit = temp.temp_max;
+                    const windspeed = weather.wind.speed;
+                    const windspeedFactor = Math.pow( windspeed, WINDCHILLCOEFFICIENT );
+
+                    const windChillMsg = "The wind chill in " + cityName + " right now is " +
+                        calculateWindChill( currTempFarenheit, windspeedFactor ).toPrecision(1) + ". The windchill low today is " +
+                        calculateWindChill( lowTempFarenheit, windspeedFactor ).toPrecision(1) + " and high is " +
+                        calculateWindChill( highTempFarenheit, windspeedFactor ).toPrecision(1);
                     return res.json( {
-                        speech: response.body.message,
-                        displayText: response.body.message,
+                        speech: windChillMsg,
+                        displayText: windChillMsg,
                     } );
                 } else {
                     return res.json( {
@@ -44,3 +60,7 @@ app.post( "/growthchart", function( req, res ) {
 app.listen( (process.env.PORT || 8000), function() {
     console.log( "Server up and listening" );
 } );
+
+function calculateWindChill( tempFarenheit, windspeedFactor ) {
+    return 35.74 + 0.6215 * tempFarenheit - 35.75 * windspeedFactor + 0.4275 * tempFarenheit * windspeedFactor;
+}
